@@ -16,10 +16,10 @@ export default function HowItWorks() {
           Three simple steps to remove the daily friction of eating well. We handle sourcing, cooking, and delivery — you just eat.
         </p>
       </div>
-      <div className="steps-grid">
+      <div className="howitworks-grid">
         {steps.map((s, i) => (
           <div key={i} className={`step-card reveal${i > 0 ? ` reveal-delay-${i}` : ''}`}>
-            <div className="step-number">{s.num}</div>
+            <div className="step-num">{s.num}</div>
             <h3>{s.title}</h3>
             <p>{s.desc}</p>
           </div>

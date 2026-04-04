@@ -3,7 +3,12 @@ export default function Footer() {
     <footer>
       <div className="footer-top">
         <div className="footer-brand">
-          <a href="#" className="nav-logo">Pepperfarm</a>
+          <img 
+            src="/images/logo/Pepperfarm green logo png.png" 
+            alt="Pepperfarm" 
+            className="footer-logo"
+            style={{ height: '80px', marginBottom: '24px' }}
+          />
           <p>The daily nutrition system. Clean-label food delivered by design for urban lives that refuse to compromise.</p>
         </div>
         <div className="footer-col">

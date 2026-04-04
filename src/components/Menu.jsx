@@ -1,82 +1,133 @@
 import { useState, useEffect } from 'react';
-import { menuItems, menuTabs } from '../data/menuData';
+import { menuItems } from '../data/menuData';
 
-function MenuCard({ item }) {
-  const [imageError, setImageError] = useState(false);
-  const showImage = item.images && item.images.length > 0 && !imageError;
+const MenuItemCard = ({ item }) => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    if (item.images && item.images.length > 1) {
+      const timer = setInterval(() => {
+        setCurrentSlide((prev) => (prev + 1) % item.images.length);
+      }, 4000 + Math.random() * 2000);
+      return () => clearInterval(timer);
+    }
+  }, [item.images]);
+
+  const nextSlide = (e) => {
+    e.stopPropagation();
+    setCurrentSlide((prev) => (prev + 1) % item.images.length);
+  };
+
+  const prevSlide = (e) => {
+    e.stopPropagation();
+    setCurrentSlide((prev) => (prev - 1 + item.images.length) % item.images.length);
+  };
+
+  const openContact = (size = null) => {
+    window.dispatchEvent(new CustomEvent('open-contact-modal', { 
+      detail: { item: item.name, size: size } 
+    }));
+  };
 
   return (
-    <div className="menu-card">
+    <div className="menu-card reveal">
       <div className="menu-card-image">
-        {showImage ? (
-          <img
-            src={item.images[0]}
-            alt={item.name}
-            onError={() => setImageError(true)}
-          />
-        ) : (
-          <span dangerouslySetInnerHTML={{ __html: item.illustration(item.color) }} />
+        <div className="menu-card-carousel">
+          {item.images?.map((img, idx) => (
+            <img
+              key={idx}
+              src={img}
+              alt={item.name}
+              className={idx === currentSlide ? 'active' : ''}
+            />
+          ))}
+          {item.images && item.images.length > 1 && (
+            <>
+              <button className="carousel-nav prev" onClick={prevSlide}>&#8592;</button>
+              <button className="carousel-nav next" onClick={nextSlide}>&#8594;</button>
+            </>
+          )}
+        </div>
+        {item.badge && (
+          <div className="menu-badge" style={{ backgroundColor: item.color || 'var(--sage)' }}>
+            {item.badge}
+          </div>
         )}
-        {item.badge && <div className="menu-badge">{item.badge}</div>}
-        <div className="size-tag">{item.size}</div>
       </div>
+      
       <div className="menu-card-body">
         <h3>{item.name}</h3>
-        <div className="desc">{item.desc}</div>
-        <div className="menu-card-footer">
-          <div className="price-group">
-            <span className="price-sub">{item.price}</span>
-            <span className="price-regular">{item.regular}</span>
+        <p className="desc">{item.desc}</p>
+        
+        {item.options ? (
+          <div className="menu-options">
+            {item.options.map((opt, idx) => (
+              <div key={idx} className="menu-option-row">
+                <span className="size">{opt.size}</span>
+                <div className="price-stack">
+                  <div className="price-item sub">
+                    <span className="price-val">{opt.subscription}</span>
+                    <span className="price-label">SUBSCRIPTION</span>
+                  </div>
+                  <div className="price-item regular">
+                    <span className="price-val">{opt.price}</span>
+                    <span className="price-label">REGULAR</span>
+                  </div>
+                </div>
+                <button className="add-btn" onClick={() => openContact(opt.size)}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 5v14M5 12h14"/></svg>
+                </button>
+              </div>
+            ))}
           </div>
-          <button className="add-btn" aria-label="Add to cart">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 5v14M5 12h14"/></svg>
-          </button>
-        </div>
+        ) : (
+          <div className="menu-card-footer">
+            <div className="price-stack">
+              <div className="price-item sub">
+                <span className="price-val">{item.subscription}</span>
+                <span className="price-label">SUBSCRIPTION</span>
+              </div>
+              <div className="price-item regular">
+                <span className="price-val">{item.price}</span>
+                <span className="price-label">REGULAR</span>
+              </div>
+            </div>
+            {item.size && <span className="size-label-small">{item.size}</span>}
+            <button className="add-btn" onClick={() => openContact()}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
-}
+};
 
 export default function Menu() {
-  const [filter, setFilter] = useState('all');
-
-  const filtered = filter === 'all'
-    ? menuItems
-    : menuItems.filter((i) => i.category === filter);
-
-  // Re-observe reveal elements after filter change
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      document.querySelectorAll('.menu-card.reveal').forEach((el) => {
-        el.classList.add('visible');
-      });
-    }, 50);
-    return () => clearTimeout(timer);
-  }, [filter]);
-
   return (
     <section className="menu-section" id="menu">
       <div className="menu-header">
-        <div className="section-label reveal">The Menu</div>
+        <div className="section-label reveal">Healthy Daily Nutrition</div>
         <h2 className="section-heading reveal reveal-delay-1">Crafted for your week.</h2>
-        <p className="reveal reveal-delay-2">
-          Salads, fruit bowls, juices, soups, and breads — all made in-house with clean-label ingredients. Subscription pricing shown first.
+        <p className="reveal reveal-delay-2" style={{ marginBottom: '24px' }}>
+          Salads, fruit bowls, juices, and soups — all made in-house with clean-label ingredients. <br />
+          Enjoy lower pricing with our 10-delivery subscription plan.
         </p>
+        <div className="pricing-legend reveal reveal-delay-3">
+          <div className="legend-item">
+            <span className="dot sub"></span>
+            <span>Subscription (Min 10 Deliveries)</span>
+          </div>
+          <div className="legend-item">
+            <span className="dot regular"></span>
+            <span>Regular Price</span>
+          </div>
+        </div>
       </div>
-      <div className="menu-tabs reveal">
-        {menuTabs.map((tab) => (
-          <button
-            key={tab.key}
-            className={`menu-tab${filter === tab.key ? ' active' : ''}`}
-            onClick={() => setFilter(tab.key)}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </div>
-      <div className="menu-grid">
-        {filtered.map((item, i) => (
-          <MenuCard key={`${item.name}-${i}`} item={item} />
+
+      <div className="menu-grid" key="all-items">
+        {menuItems.map((item, idx) => (
+          <MenuItemCard key={idx} item={item} />
         ))}
       </div>
     </section>

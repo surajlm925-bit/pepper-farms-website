@@ -6,6 +6,7 @@ import Marquee from './components/Marquee';
 import Philosophy from './components/Philosophy';
 import HowItWorks from './components/HowItWorks';
 import Menu from './components/Menu';
+import Bakery from './components/Bakery';
 import TrialBanner from './components/TrialBanner';
 import Sourcing from './components/Sourcing';
 import Testimonials from './components/Testimonials';
@@ -13,6 +14,7 @@ import Promise from './components/Promise';
 import Subscriptions from './components/Subscriptions';
 import Gallery from './components/Gallery';
 import Footer from './components/Footer';
+import WhatsAppWidget from './components/WhatsAppWidget';
 
 function App() {
   const { reobserve } = useAnimations();
@@ -31,6 +33,7 @@ function App() {
       <Philosophy />
       <HowItWorks />
       <Menu />
+      <Bakery />
       <TrialBanner />
       <Sourcing />
       <Gallery />
@@ -38,6 +41,7 @@ function App() {
       <Promise />
       <Subscriptions />
       <Footer />
+      <WhatsAppWidget />
     </>
   );
 }

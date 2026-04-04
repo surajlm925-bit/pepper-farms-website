@@ -3,6 +3,13 @@ import { useEffect, useRef } from 'react';
 export default function Hero() {
   const headlineRef = useRef(null);
 
+  const openContact = (e) => {
+    e.preventDefault();
+    window.dispatchEvent(new CustomEvent('open-contact-modal', { 
+      detail: { item: "Let's Talk Inquiry" } 
+    }));
+  };
+
   useEffect(() => {
     const timer = setTimeout(() => {
       headlineRef.current?.classList.add('visible');
@@ -15,14 +22,14 @@ export default function Hero() {
       <div className="hero-top">
         <h1 className="hero-headline" ref={headlineRef}>
           <span className="line"><span className="line-inner">The daily nutrition</span></span>
-          <span className="line"><span className="line-inner"><em>system</em> designed for</span></span>
+          <span className="line"><span className="line-inner"><em>system</em> designed for </span></span>
           <span className="line"><span className="line-inner">modern urban lives.</span></span>
         </h1>
         <div className="hero-aside reveal reveal-delay-2">
-          <a href="#menu" className="pill-btn">
+          <button onClick={openContact} className="pill-btn">
             Let's Talk
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
+          </button>
         </div>
       </div>
 

@@ -56,13 +56,20 @@ const plans = [
 ];
 
 export default function Subscriptions() {
+  const openContact = (planName) => {
+    window.dispatchEvent(new CustomEvent('open-contact-modal', { 
+      detail: { item: `${planName} Subscription` } 
+    }));
+  };
+
   return (
     <section className="subscriptions" id="subscriptions">
       <div className="sub-header">
         <div className="section-label reveal">Subscription Plans</div>
         <h2 className="section-heading reveal reveal-delay-1">Built for your rhythm.</h2>
-        <p className="reveal reveal-delay-2">
-          Minimum 10 deliveries per plan. Delivery days: Monday, Wednesday, Friday. Lower pricing, better food, zero effort.
+        <p className="reveal reveal-delay-2" style={{ maxWidth: '600px', margin: '24px auto 0' }}>
+          Minimum 10 deliveries per plan. Delivery days: Monday, Wednesday, Friday. <br />
+          Lower pricing, better food, zero effort.
         </p>
       </div>
       <div className="sub-grid">
@@ -77,10 +84,20 @@ export default function Subscriptions() {
             </div>
             <ul className="sub-features">
               {plan.features.map((f, j) => (
-                <li key={j}><CheckIcon /> {f}</li>
+                <li key={j}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ width: '18px', height: '18px', flexShrink: 0, marginTop: '3px' }}>
+                    <path d="M20 6L9 17l-5-5"/>
+                  </svg>
+                  <span>{f}</span>
+                </li>
               ))}
             </ul>
-            <button className="sub-btn">{plan.btnText}</button>
+            <button 
+              onClick={() => openContact(plan.name)}
+              className={plan.featured ? "sub-btn featured-btn" : "sub-btn outline-btn"}
+            >
+              {plan.btnText}
+            </button>
           </div>
         ))}
       </div>
