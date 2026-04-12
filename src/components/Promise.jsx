@@ -9,7 +9,7 @@ const promises = [
   'Zero preservatives, artificial additives, or premixes',
   'Locally sourced from small farms & seasonal vendors',
   'Full ingredient transparency on every single item',
-  'Small-batch, in-house preparation — no industrial shortcuts',
+  'Small-batch, in-house preparation. No industrial shortcuts',
   'Nutritionally balanced by design, not by accident',
   'Rotating menus to avoid monotony & follow seasons',
 ];
@@ -20,9 +20,6 @@ export default function Promise() {
       <div className="promise-text">
         <div className="section-label reveal">Our Promise</div>
         <h2 className="section-heading reveal reveal-delay-1">Clean-label food.<br/>Delivered by design.</h2>
-        <p className="reveal reveal-delay-2">
-          We list every ingredient and the "why" behind every recipe. No shortcuts. No chemicals. Just nutrition. Our promise: real food, honestly prepared, published ingredient lists, sourcing methods, and full nutritional data — because trust is earned, not claimed.
-        </p>
         <ul className="promise-list reveal reveal-delay-3">
           {promises.map((p, i) => (
             <li key={i}>

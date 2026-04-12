@@ -8,14 +8,15 @@ export default function HowItWorks() {
   return (
     <section className="how-it-works" id="how">
       <div className="how-header">
-        <div>
+        <div style={{ textAlign: 'center', width: '100%' }}>
           <div className="section-label reveal">How It Works</div>
-          <h2 className="section-heading reveal reveal-delay-1">Your health,<br/>on autopilot.</h2>
+          <h2 className="section-heading reveal reveal-delay-1">Your health, on autopilot.</h2>
+          <p className="reveal reveal-delay-2" style={{ maxWidth: '520px', margin: '16px auto 0' }}>
+            Three simple steps to remove the daily friction of eating well. We handle sourcing, cooking, and delivery. You just eat.
+          </p>
         </div>
-        <p className="reveal reveal-delay-2">
-          Three simple steps to remove the daily friction of eating well. We handle sourcing, cooking, and delivery — you just eat.
-        </p>
       </div>
+
       <div className="howitworks-grid">
         {steps.map((s, i) => (
           <div key={i} className={`step-card reveal${i > 0 ? ` reveal-delay-${i}` : ''}`}>

@@ -13,7 +13,7 @@ const plans = [
     period: '/ bowl (1000ml)',
     featured: false,
     features: [
-      '1000ml Veg Bowl — 3x weekly',
+      '1000ml Veg Bowl. 3x weekly',
       'Minimum 10 deliveries',
       'Seasonal menu rotation',
       'Full ingredient transparency',
@@ -24,7 +24,7 @@ const plans = [
   {
     badge: 'Most Popular',
     name: 'Complete',
-    desc: 'Bowl + juice + extras. The full daily nutrition system — your health on autopilot.',
+    desc: 'Bowl + juice + extras. The full daily nutrition system. Your health on autopilot.',
     price: '₹490',
     period: '/ day',
     featured: true,
@@ -66,10 +66,9 @@ export default function Subscriptions() {
     <section className="subscriptions" id="subscriptions">
       <div className="sub-header">
         <div className="section-label reveal">Subscription Plans</div>
-        <h2 className="section-heading reveal reveal-delay-1">Built for your rhythm.</h2>
-        <p className="reveal reveal-delay-2" style={{ maxWidth: '600px', margin: '24px auto 0' }}>
-          Minimum 10 deliveries per plan. Delivery days: Monday, Wednesday, Friday. <br />
-          Lower pricing, better food, zero effort.
+        <h2 className="section-heading reveal reveal-delay-1" style={{ textAlign: 'center' }}>Built for your rhythm.</h2>
+        <p className="reveal reveal-delay-2" style={{ maxWidth: '600px', margin: '24px auto 0', textAlign: 'center' }}>
+          Minimum 10 deliveries. Delivery on Monday, Wednesday and Friday. Better food, zero daily effort.
         </p>
       </div>
       <div className="sub-grid">

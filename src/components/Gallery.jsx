@@ -1,8 +1,5 @@
 const freshProduce = [
-  '/images/fresh-produce/WhatsApp Image 2026-01-19 at 16.33.58.jpeg',
-  '/images/fresh-produce/WhatsApp Image 2026-01-19 at 16.33.59 (1).jpeg',
   '/images/fresh-produce/WhatsApp Image 2026-01-19 at 16.33.59.jpeg',
-  '/images/fresh-produce/WhatsApp Image 2026-01-19 at 16.34.01 (2).jpeg',
   '/images/fresh-produce/WhatsApp Image 2026-01-19 at 16.34.02 (1).jpeg',
   '/images/fresh-produce/WhatsApp Image 2026-01-19 at 16.34.02 (2).jpeg',
   '/images/fresh-produce/WhatsApp Image 2026-01-19 at 16.34.03 (1).jpeg',
@@ -41,16 +38,6 @@ export default function Gallery() {
         </div>
       </div>
 
-      {/* Track 2: Kitchen & Packaging (Reverse Direction) */}
-      <div className="gallery-marquee-container" style={{ marginTop: '32px' }}>
-        <div className="gallery-marquee-track reverse">
-          {[...kitchensAndPackaging, ...kitchensAndPackaging].map((src, i) => (
-            <div key={`g2-${i}`} className="gallery-marquee-item" style={{ width: '400px', height: '500px' }}>
-              <img src={src} alt="Kitchen and Packaging" loading="lazy" />
-            </div>
-          ))}
-        </div>
-      </div>
     </section>
   );
 }

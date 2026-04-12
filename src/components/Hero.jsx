@@ -1,15 +1,22 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { heroShowcaseImages } from '../data/menuData';
 
 export default function Hero() {
   const headlineRef = useRef(null);
+  const heroRef = useRef(null);
+  const parallaxLayers = useRef([]);
+  const [activeSlide, setActiveSlide] = useState(0);
 
   const openContact = (e) => {
     e.preventDefault();
-    window.dispatchEvent(new CustomEvent('open-contact-modal', { 
-      detail: { item: "Let's Talk Inquiry" } 
-    }));
+    window.dispatchEvent(
+      new CustomEvent('open-contact-modal', {
+        detail: { item: "Let's Talk Inquiry" },
+      })
+    );
   };
 
+  /* ── Headline reveal ── */
   useEffect(() => {
     const timer = setTimeout(() => {
       headlineRef.current?.classList.add('visible');
@@ -17,49 +24,122 @@ export default function Hero() {
     return () => clearTimeout(timer);
   }, []);
 
+  /* ── Auto-advance carousel ── */
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveSlide((p) => (p + 1) % heroShowcaseImages.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  /* ── Mouse-tracking parallax ── */
+  useEffect(() => {
+    const hero = heroRef.current;
+    if (!hero) return;
+
+    const handleMove = (e) => {
+      const rect = hero.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+      parallaxLayers.current.forEach((el) => {
+        if (!el) return;
+        const depth = parseFloat(el.dataset.depth || 0);
+        const moveX = x * depth * 40;
+        const moveY = y * depth * 25;
+        el.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
+      });
+
+      /* Rotate the 3D carousel ring slightly */
+      const ring = hero.querySelector('.carousel-3d-ring');
+      if (ring) {
+        ring.style.setProperty('--mouse-x', `${x * 8}deg`);
+        ring.style.setProperty('--mouse-y', `${y * -4}deg`);
+      }
+    };
+
+    hero.addEventListener('mousemove', handleMove);
+    return () => hero.removeEventListener('mousemove', handleMove);
+  }, []);
+
+  const addParallaxRef = (el) => {
+    if (el && !parallaxLayers.current.includes(el)) {
+      parallaxLayers.current.push(el);
+    }
+  };
+
+  const totalImages = heroShowcaseImages.length;
+  const angleStep = 360 / totalImages;
+
   return (
-    <section className="hero">
-      <div className="hero-top">
-        <h1 className="hero-headline" ref={headlineRef}>
-          <span className="line"><span className="line-inner">The daily nutrition</span></span>
-          <span className="line"><span className="line-inner"><em>system</em> designed for </span></span>
-          <span className="line"><span className="line-inner">modern urban lives.</span></span>
-        </h1>
-        <div className="hero-aside reveal reveal-delay-2">
-          <button onClick={openContact} className="pill-btn">
-            Let's Talk
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </button>
-        </div>
+    <section className="hero hero-banner hero-3d" ref={heroRef}>
+      {/* ── Gradient background (no image) ── */}
+      <div className="hero-gradient-bg" />
+
+      {/* ── Grain overlay ── */}
+      <div className="hero-grain" />
+
+      {/* ── Floating organic elements ── */}
+      <div className="hero-floating-elements" aria-hidden="true">
+        <div className="float-orb float-orb-1" ref={addParallaxRef} data-depth="1.2" />
+        <div className="float-orb float-orb-2" ref={addParallaxRef} data-depth="0.8" />
+        <div className="float-orb float-orb-3" ref={addParallaxRef} data-depth="1.5" />
       </div>
 
-      <div className="hero-image-section reveal reveal-delay-1">
-        <img
-          className="hero-visual"
-          src="/images/fresh-produce/WhatsApp Image 2026-01-19 at 16.34.05 (2).jpeg"
-          alt="Pepperfarm fresh produce and ingredients"
-        />
-        <div className="hero-image-overlay">
-          <p>Farm to fork, without compromise. Fresh, nutrient-dense meals — no preservatives, no additives, no premixes. A subscription-first clean-label food system.</p>
-          <div className="hero-stats">
-            <div className="hero-stat">
-              <div className="num">24+</div>
-              <div className="label">Rotating Recipes</div>
-            </div>
-            <div className="hero-stat">
-              <div className="num">3x</div>
-              <div className="label">Weekly Delivery</div>
-            </div>
-            <div className="hero-stat">
-              <div className="num">₹250</div>
-              <div className="label">Per Bowl / Sub</div>
-            </div>
+      {/* ── Pollen particles ── */}
+      <div className="hero-particles" aria-hidden="true">
+        {Array.from({ length: 25 }).map((_, i) => (
+          <span key={i} className="particle" style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 6}s`,
+            animationDuration: `${4 + Math.random() * 6}s`,
+            width: `${2 + Math.random() * 3}px`,
+            height: `${2 + Math.random() * 3}px`,
+            opacity: 0.15 + Math.random() * 0.35,
+          }} />
+        ))}
+      </div>
+
+      {/* ── Fullscreen 3D Carousel Background ── */}
+      <div className="hero-carousel-fullscreen" ref={addParallaxRef} data-depth="0.2">
+        <div className="carousel-3d-viewport">
+          <div
+            className="carousel-3d-ring"
+            style={{ '--active': activeSlide, '--total': totalImages, '--angle-step': `${angleStep}deg` }}
+          >
+            {heroShowcaseImages.map((img, i) => (
+              <div
+                key={i}
+                className={`carousel-3d-card ${i === activeSlide ? 'active' : ''}`}
+                style={{ '--i': i, '--angle': `${i * angleStep}deg` }}
+              >
+                <img src={img.src} alt={img.label} />
+                <span className="carousel-3d-label">{img.label}</span>
+              </div>
+            ))}
           </div>
+        </div>
+      </div>
+      {/* ── Content overlaid center ── */}
+      <div className="hero-content-overlay">
+        <div className="hero-text-top reveal">
+          <div className="hero-eyebrow">
+            <span className="hero-eyebrow-line" />
+            Farm to Table · Bangalore
+            <span className="hero-eyebrow-line" />
+          </div>
+        </div>
+
+        <div className="hero-text-bottom">
+          <h1 className="hero-headline-small reveal">
+            Fresh. Honest. Everyday food that actually feels <em>good.</em>
+          </h1>
         </div>
       </div>
 
       <div className="scroll-indicator">
-        <div className="scroll-line"></div>
+        <div className="scroll-line" />
         Scroll to explore
       </div>
     </section>
