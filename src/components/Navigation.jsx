@@ -42,8 +42,8 @@ export default function Navigation() {
           <a href="#bakery">Bakery</a>
           <a href="#subscriptions">Plans</a>
           <a href="#promise">Promise</a>
-          <button onClick={openContact} className="nav-link-btn" style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.75rem', fontWeight: 500, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--charcoal)', padding: 0 }}>Contact Us</button>
-          <button onClick={openTrial} className="nav-cta">₹1,250 Trial</button>
+          <button onClick={openContact} className="nav-link-btn" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>Contact Us</button>
+          {scrolled && <button onClick={openTrial} className="nav-cta">₹1,250 Trial</button>}
         </div>
         <div className="nav-hamburger" id="hamburger" onClick={() => setMobileOpen(true)}>
           <span></span><span></span><span></span>

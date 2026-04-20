@@ -1,6 +1,6 @@
 const CheckIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <path d="M20 6L9 17l-5-5"/>
+    <path d="M20 6L9 17l-5-5" />
   </svg>
 );
 
@@ -57,8 +57,8 @@ const plans = [
 
 export default function Subscriptions() {
   const openContact = (planName) => {
-    window.dispatchEvent(new CustomEvent('open-contact-modal', { 
-      detail: { item: `${planName} Subscription` } 
+    window.dispatchEvent(new CustomEvent('open-contact-modal', {
+      detail: { item: `${planName} Subscription` }
     }));
   };
 
@@ -85,13 +85,13 @@ export default function Subscriptions() {
               {plan.features.map((f, j) => (
                 <li key={j}>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ width: '18px', height: '18px', flexShrink: 0, marginTop: '3px' }}>
-                    <path d="M20 6L9 17l-5-5"/>
+                    <path d="M20 6L9 17l-5-5" />
                   </svg>
                   <span>{f}</span>
                 </li>
               ))}
             </ul>
-            <button 
+            <button
               onClick={() => openContact(plan.name)}
               className={plan.featured ? "sub-btn featured-btn" : "sub-btn outline-btn"}
             >

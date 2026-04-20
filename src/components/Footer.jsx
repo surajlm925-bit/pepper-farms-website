@@ -3,9 +3,9 @@ export default function Footer() {
     <footer>
       <div className="footer-top">
         <div className="footer-brand">
-          <img 
-            src="/images/logo/Pepperfarm green logo png.png" 
-            alt="Pepperfarm" 
+          <img
+            src="/images/logo/Pepperfarm green logo png.png"
+            alt="Pepperfarm"
             className="footer-logo"
             style={{ height: '80px', marginBottom: '24px' }}
           />
@@ -33,7 +33,15 @@ export default function Footer() {
         <div className="footer-col">
           <h4>Support</h4>
           <ul>
-            <li><a href="#">FAQ</a></li>
+            <li>
+              <a
+                href="/Pepperfarm_FAQ.pdf"
+                download="Pepperfarm_FAQ.pdf"
+                title="Download Pepperfarm FAQ"
+              >
+                FAQ ↓
+              </a>
+            </li>
             <li><a href="#">Delivery Zones</a></li>
             <li><a href="#subscriptions">Manage Subscription</a></li>
             <li><a href="#">Contact</a></li>

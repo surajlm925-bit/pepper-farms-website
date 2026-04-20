@@ -18,8 +18,10 @@ export default function Promise() {
   return (
     <section className="promise" id="promise">
       <div className="promise-text">
-        <div className="section-label reveal">Our Promise</div>
-        <h2 className="section-heading reveal reveal-delay-1">Clean-label food.<br/>Delivered by design.</h2>
+        <h2 className="section-heading reveal" style={{ textAlign: 'left', marginBottom: '1.5rem' }}></h2>
+        <p className="promise-subtext reveal reveal-delay-1">
+          Everything we put in your box follows one rule: if we would not eat it ourselves, it does not go in.
+        </p>
         <ul className="promise-list reveal reveal-delay-3">
           {promises.map((p, i) => (
             <li key={i}>

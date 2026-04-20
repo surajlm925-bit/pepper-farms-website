@@ -104,8 +104,7 @@ const bakeryItems = [
     size: '450gms',
     category: 'bakery',
     images: [
-      '/images/breads/WhatsApp_Image_2026-01-19_202604130505 (1).jpeg',
-      '/images/breads/WhatsApp_Image_2026-01-19_202604130505 (2).jpeg',
+      '/images/breads/seed.jpeg',
     ],
   },
   {
@@ -115,8 +114,7 @@ const bakeryItems = [
     size: '500gms',
     category: 'bakery',
     images: [
-      '/images/breads/WhatsApp_Image_2026-01-19_202604130505.jpeg',
-      '/images/breads/WhatsApp_Image_2026-01-19_202604130506 (1).jpeg',
+      '/images/breads/sourdough.jpeg',
     ],
   },
   {
@@ -128,7 +126,7 @@ const bakeryItems = [
     ],
     category: 'bakery',
     images: [
-      '/images/breads/WhatsApp_Image_2026-01-19_202604130506.jpeg',
+      '/images/breads/foccacia.jpeg',
     ],
   },
 ];

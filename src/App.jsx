@@ -11,7 +11,6 @@ import TrialBanner from './components/TrialBanner';
 import Sourcing from './components/Sourcing';
 import Testimonials from './components/Testimonials';
 import Promise from './components/Promise';
-import Subscriptions from './components/Subscriptions';
 import Gallery from './components/Gallery';
 import Footer from './components/Footer';
 import WhatsAppWidget from './components/WhatsAppWidget';
@@ -39,7 +38,6 @@ function App() {
       <Gallery />
       <Testimonials />
       <Promise />
-      <Subscriptions />
       <Footer />
       <WhatsAppWidget />
     </>
